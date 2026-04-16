@@ -2,7 +2,7 @@
 
 # MoodX - Emotion-Based Music Recommendation AI
 
-With the rise of personalized music streaming services, there is a growing need for systems that can recommend music based on users' emotional states. Realizing this need, **MoodX** is being developed by **Mohit Kumar** in 2024 to provide highly personalized, real-time music recommendations based on your detected facial emotions.
+With the rise of personalized music streaming services, there is a growing need for systems that can recommend music based on users' emotional states. Realizing this need, **MoodX** is being developed by **Mohit Kumar** to provide highly personalized, real-time music recommendations based on your detected facial emotions.
 
 <img src="https://raw.githubusercontent.com/x0rz/EQ-Visualizer/master/demo.gif" width="600" alt="MoodX Neural Engine"/>
 
@@ -10,7 +10,7 @@ With the rise of personalized music streaming services, there is a growing need 
 
 The **MoodX** project is an integrated emotion-based music recommendation engine that combines frontend styling, local Flask backend routing, and deep learning AI models to provide precise audio curation. The application analyzes live facial expressions and synthesizes the exact audio library that aligns with the detected user input.
 
-Supporting seamless desktop execution, MoodX offers an aesthetic, glassmorphic UI with real-time emotion detection mapping directly to a YouTube backend playback system. The project leverages **HTML5/CSS3** for the frontend, **Flask** for the backend engine, and an advanced **DeepFace/Keras** AI/ML model for emotion detection. 
+Supporting seamless desktop execution, MoodX offers an aesthetic, glassmorphic UI with real-time emotion detection mapping directly to a YouTube backend playback system. The project leverages **HTML5/CSS3** for the frontend, **Flask** for the backend engine, and a custom-trained **Convolutional Neural Network (CNN)** for emotion detection. 
 
 <div align="center">
 
@@ -78,7 +78,7 @@ Here is the list of technologies heavily utilized in building the MoodX project:
 - **yt-dlp:** For real-time, zero-API dependency, full-audio stream parsing directly from CDN architectures.
 
 **AI/ML Models:**
-- **DeepFace:** As the heavy wrapper compiling convolutional layers for micro-expression parsing.
+- **Custom CNN Architecture:** Hand-trained convolutional layers optimized for high-precision micro-expression parsing.
 - **TensorFlow / Keras:** The foundational ML backend mapping weights securely onto local CPU arrays.
 - **OpenCV:** For rapid matrix video feed handling (Webcam processing).
 - **Pillow (PIL):** For secure matrix conversion prior to neural mapping.
@@ -113,7 +113,7 @@ ai_project/
 ```mermaid
 graph TD
     Client[Frontend UI - HTML/CSS/JS] -->|Webcam Image / Selection| Backend[Flask Server]
-    Backend -->|Process Pixels| ML[DeepFace / Keras AI Engine]
+    Backend -->|Process Pixels| ML[Custom CNN AI Engine]
     ML -->|Extract Confidence Metric| Backend
     Backend -->|Match Emotion to Dictionary| DB[(yt_data.json)]
     DB --> |Get YouTube URLs| Streaming[yt-dlp Engine]
@@ -138,7 +138,7 @@ Ensure you have the following installed natively:
 - **Git**
 
 ### 2. Setup Virtual Environment
-It is highly recommended to segregate the complex DeepFace packages into an isolated virtual environment.
+It is highly recommended to segregate the Machine Learning packages into an isolated virtual environment.
 
 **Windows:**
 ```bash
@@ -148,7 +148,7 @@ python -m venv my_envgpu
 
 ### 3. Install Dependencies
 ```bash
-pip install Flask deepface opencv-python tensorflow yt-dlp
+pip install Flask opencv-python tensorflow yt-dlp
 ```
 
 ### 4. Launch the Server
