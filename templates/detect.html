@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodX - Detect Emotion</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- Magic Background Orbs -->
+    <div class="aurora-bg">
+        <div class="aurora-orb orb-1"></div>
+        <div class="aurora-orb orb-2"></div>
+        <div class="aurora-orb orb-3"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="nav-left" style="position: relative;">
+                <!-- Hamburger Menu -->
+                <div class="hamburger" id="hamburger-menu" style="cursor: pointer;">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="nav-dropdown" id="nav-dropdown">
+                    <a href="{{ url_for('home') }}#modes"> Explore</a>
+                    <a href="{{ url_for('home') }}#features"> Features</a>
+                    <a href="{{ url_for('home') }}#about"> About MoodX</a>
+                </div>
+                <a href="{{ url_for('home') }}" class="logo text-gradient" style="margin-left: 10px;">MoodX</a>
+            </div>
+            <div>
+                <a href="{{ url_for('home') }}" class="btn-secondary" style="padding: 8px 16px; font-size: 0.9rem; margin-right: 10px;">Home</a>
+                <a href="{{ url_for('home') }}#modes" class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Modes</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Detect Interface -->
+    <main class="detect-container container">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <p style="color: var(--accent-secondary); font-weight: 700; letter-spacing: 1px; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 10px;">Live Integration</p>
+            <h2 style="font-size: 2.8rem; margin-bottom: 15px;">Analyze Your <span class="text-gradient">Expression</span></h2>
+            <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;">Select your preferred method for face analysis. MoodX respects your privacy.</p>
+        </div>
+
+        <div class="glass-card" style="width: 100%; max-width: 800px; margin-bottom: 60px;">
+            
+            <div style="margin-bottom: 40px; text-align: center;">
+                <label for="username" style="display: block; margin-bottom: 10px; font-weight: 600; color: #fff;">Please Enter Your Name:</label>
+                <input type="text" id="username" class="neon-input" placeholder="e.g. Mohit" style="max-width: 400px; text-align: center; margin: 0 auto; display: block;" required>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid var(--glass-border); margin: 30px 0;">
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('webcam-tab')">Webcam</button>
+                <button class="tab-btn" onclick="switchTab('upload-tab')">Upload Image</button>
+            </div>
+
+            <!-- Webcam Tab -->
+            <div id="webcam-tab" class="tab-content active" style="text-align: center;">
+                <div class="video-container" id="video-container" style="display: none;">
+                    <video id="video" autoplay playsinline style="width: 100%; height: auto; display: block; object-fit: cover; border-radius: 12px;"></video>
+                </div>
+                <button id="start-camera-btn" class="btn-primary" style="padding: 14px 40px; font-size: 1.1rem; margin-bottom: 20px;">
+                    <i class="ph ph-video-camera" style="margin-right: 8px; vertical-align: middle;"></i> Start Camera
+                </button>
+                <button id="capture-btn" class="btn-primary" style="padding: 14px 40px; font-size: 1.1rem; display: none; margin: 0 auto;">
+                    <i class="ph ph-camera" style="margin-right: 8px; vertical-align: middle;"></i> Capture & Analyze
+                </button>
+            </div>
+
+            <!-- Upload Tab -->
+            <div id="upload-tab" class="tab-content" style="display: none; text-align: center;">
+                <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
+                    <i class="ph ph-upload-simple upload-icon" style="margin-bottom: 15px; display: inline-block;"></i>
+                    <h3 style="margin-bottom: 10px;">Click to Upload</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Supports JPG, PNG formats</p>
+                </div>
+                <input type="file" id="file-input" accept="image/jpeg, image/png">
+                <img id="image-preview" src="" alt="Preview">
+                
+                <button id="upload-btn" class="btn-primary" style="padding: 14px 40px; font-size: 1.1rem; display: none; margin: 0 auto;">
+                    <i class="ph ph-magic-wand" style="margin-right: 8px; vertical-align: middle;"></i> Analyze Image
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading" class="loading-overlay">
+        <div class="loader"></div>
+        <h3 style="color: var(--text-primary);">Analyzing Expression...</h3>
+        <p style="color: var(--text-secondary); margin-top: 10px;">Our AI is scanning your features mapping mood dynamics.</p>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const video = document.getElementById('video');
+        const captureBtn = document.getElementById('capture-btn');
+        const fileInput = document.getElementById('file-input');
+        const imagePreview = document.getElementById('image-preview');
+        const uploadBtn = document.getElementById('upload-btn');
+        const uploadArea = document.getElementById('upload-area');
+        const loading = document.getElementById('loading');
+        const startCameraBtn = document.getElementById('start-camera-btn');
+        const videoContainer = document.getElementById('video-container');
+        const usernameInput = document.getElementById('username');
+        let stream = null;
+
+        function validateName() {
+            const name = usernameInput.value.trim();
+            if (!name) {
+                alert("Please enter your name first!");
+                usernameInput.focus();
+                return false;
+            }
+            return name;
+        }
+
+        // Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabId).style.display = 'block';
+            event.target.classList.add('active');
+
+            if (tabId === 'webcam-tab') {
+                if (stream) {
+                    videoContainer.style.display = 'block';
+                    startCameraBtn.style.display = 'none';
+                    captureBtn.style.display = 'inline-block';
+                } else {
+                    videoContainer.style.display = 'none';
+                    startCameraBtn.style.display = 'inline-block';
+                    captureBtn.style.display = 'none';
+                }
+            } else {
+                stopWebcam();
+                videoContainer.style.display = 'none';
+                startCameraBtn.style.display = 'inline-block';
+                captureBtn.style.display = 'none';
+            }
+        }
+
+        // Webcam Logic
+        startCameraBtn.addEventListener('click', async () => {
+            if (!validateName()) return;
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    video.srcObject = stream;
+                    
+                    startCameraBtn.style.display = 'none';
+                    videoContainer.style.display = 'block';
+                    captureBtn.style.display = 'inline-block';
+                } catch (error) {
+                    console.error("Webcam error:", error);
+                    alert("Could not access the webcam. Please allow permissions.");
+                }
+            }
+        });
+
+        function stopWebcam() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+                stream = null;
+            }
+        }
+
+        // Capture from Webcam
+        captureBtn.addEventListener('click', () => {
+            if (!validateName()) return;
+
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataUrl = canvas.toDataURL('image/jpeg');
+
+            sendPrediction('/webcam', { image: dataUrl }, true);
+        });
+
+        // Upload Logic
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    uploadArea.style.display = 'none';
+                    uploadBtn.style.display = 'inline-block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        uploadBtn.addEventListener('click', () => {
+            if (!validateName()) return;
+
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("Please select a file.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            sendPrediction('/predict', formData, false);
+        });
+
+        // API Call
+        async function sendPrediction(endpoint, data, isJson) {
+            loading.classList.add('active');
+            stopWebcam(); 
+            
+            try {
+                const options = { method: 'POST', body: isJson ? JSON.stringify(data) : data };
+                if (isJson) options.headers = { 'Content-Type': 'application/json' };
+
+                const response = await fetch(endpoint, options);
+                const result = await response.json();
+                const uName = encodeURIComponent(usernameInput.value.trim());
+
+                if (response.ok) {
+                    window.location.href = `/result?emotion=${result.emotion}&confidence=${result.confidence}&name=${uName}`;
+                } else {
+                    alert('Error: ' + (result.error || 'Could not analyze image.'));
+                    loading.classList.remove('active');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('An error occurred during prediction.');
+                loading.classList.remove('active');
+            }
+        }
+
+        // Dropdown Menu Logic
+        const hmBtn = document.getElementById('hamburger-menu');
+        const hmDrop = document.getElementById('nav-dropdown');
+        if(hmBtn && hmDrop) {
+            hmBtn.addEventListener('click', (e) => {
+                hmDrop.classList.toggle('show');
+                e.stopPropagation();
+            });
+            document.addEventListener('click', (e) => {
+                if(!hmDrop.contains(e.target) && !hmBtn.contains(e.target)) {
+                    hmDrop.classList.remove('show');
+                }
+            });
+        }
+
+        // Smart Navbar Scroll Logic
+        let lastScrollY = window.scrollY;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (lastScrollY < window.scrollY) {
+                // scrolling down
+                navbar.classList.add('navbar--hidden');
+            } else {
+                // scrolling up
+                navbar.classList.remove('navbar--hidden');
+            }
+            lastScrollY = window.scrollY;
+        });
+    </script>
+</body>
+</html>

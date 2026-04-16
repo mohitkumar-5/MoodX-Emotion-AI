@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodX - Result</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .playlist-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            margin-bottom: 10px;
+            backdrop-filter: blur(5px);
+        }
+        .playlist-btn:hover { background: rgba(255,255,255,0.1); transform: translateX(5px); }
+        .playlist-btn.spotify:hover { border-color: #1DB954; color: #1DB954; }
+        .playlist-btn.youtube:hover { border-color: #FF0000; color: #FF0000; }
+    </style>
+</head>
+<body>
+
+    <!-- Magic Background Orbs -->
+    <div class="aurora-bg">
+        <div class="aurora-orb orb-1"></div>
+        <div class="aurora-orb orb-2"></div>
+        <div class="aurora-orb orb-3"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="nav-left" style="position: relative;">
+                <div class="hamburger" id="hamburger-menu" style="cursor: pointer;">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="nav-dropdown" id="nav-dropdown">
+                    <a href="{{ url_for('home') }}#modes"> Explore</a>
+                    <a href="{{ url_for('home') }}#features"> Features</a>
+                    <a href="{{ url_for('home') }}#about"> About MoodX</a>
+                </div>
+                <a href="{{ url_for('home') }}" class="logo text-gradient" style="margin-left: 10px;">MoodX</a>
+            </div>
+            <div>
+                <a href="{{ url_for('home') }}" class="btn-secondary" style="padding: 8px 16px; font-size: 0.9rem; margin-right: 10px;">Home</a>
+                <a href="{{ url_for('home') }}#modes" class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Modes</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container split-layout">
+        <!-- Left Side: Emotion Report -->
+        <div class="hero-text pb-20">
+            <h4 style="color: var(--accent-primary); margin-bottom: 5px; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px;">Live Mood Snapshot</h4>
+            <div style="font-size: 5rem; margin-bottom: 20px;" id="emoji">🎭</div>
+            
+            <h2 style="font-size: 2.2rem; margin-bottom: 15px;">Hi <span class="text-gradient">{{ name }}</span>!</h2>
+            <h1 style="font-size: 3.5rem; text-transform: capitalize;">{{ emotion }}</h1>
+            <p>Your emotional response was detected with <strong style="color: var(--accent-primary);">{{ confidence }}%</strong> confidence.</p>
+
+            <div class="emotion-slider-group" style="margin-top: 30px;">
+                <div class="emotion-slider-header"><span>Confidence Interval</span><span>{{ confidence }}%</span></div>
+                <div class="slider-track"><div class="slider-fill" id="confidence-bar"></div></div>
+            </div>
+
+            <div style="margin-top: 40px; display: flex; gap: 15px;">
+                <a href="{{ url_for('detect') }}" class="btn-secondary"><i class="ph ph-arrow-counter-clockwise"></i> Analyze Again</a>
+            </div>
+            
+            <div style="margin-top: 40px; max-width: 400px;">
+                <h4 style="margin-bottom: 15px; font-size: 1rem; color: var(--text-secondary);">Or Launch Full Mood Playlists:</h4>
+                <a href="{{ spotify }}" target="_blank" class="playlist-btn spotify">
+                    <i class="ph ph-spotify-logo" style="font-size: 1.5rem;"></i> Listen on Spotify
+                </a>
+                <a href="{{ youtube }}" target="_blank" class="playlist-btn youtube">
+                    <i class="ph ph-youtube-logo" style="font-size: 1.5rem;"></i> Watch on YouTube
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Side: The Dynamic Song Engine -->
+        <div class="glass-card" style="box-shadow: 0 0 50px rgba(6, 182, 212, 0.2); border-color: rgba(6, 182, 212, 0.2);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <h3 style="font-size: 1.4rem;">Curated Soundtrack</h3>
+                <span style="background: rgba(6, 182, 212, 0.1); color: var(--accent-secondary); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(6,182,212,0.3);">Sync Active</span>
+            </div>
+            
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px;">Top 5 matching tracks blending classics with modern hits matched to your frequency.</p>
+            
+            <div class="song-list-container">
+                {% for song in songs %}
+                <div class="itunes-track-card">
+                    <img src="{{ song.artwork }}" alt="Album Art" class="itunes-album-art">
+                    <div class="itunes-info">
+                        <h4 style="font-size: 0.95rem; margin-bottom: 2px;">{{ song.title }}</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px;">Mixed Audio Engine</p>
+                        <audio controls class="itunes-audio" style="width: 100%;">
+                            <source src="/audio/{{ song.yt_id }}" type="audio/mp4">
+                        </audio>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Animate confidence
+            const confidence = {{ confidence }};
+            const bar = document.getElementById("confidence-bar");
+            setTimeout(() => {
+                bar.style.width = confidence + "%";
+            }, 300);
+
+            // Set emoji based on Jinja variable
+            const emotionStr = "{{ emotion }}".toLowerCase();
+            const emojis = {
+                "happy": "😁", "sad": "😔", "angry": "😠", 
+                "neutral": "😐", "fear": "😨", "surprise": "😲", "disgust": "🤢"
+            };
+            document.getElementById("emoji").innerText = emojis[emotionStr] || "🎭";
+
+            // Exclusive audio playback (auto-pause others)
+            const audios = document.querySelectorAll('audio');
+            audios.forEach(audio => {
+                audio.addEventListener('play', () => {
+                    audios.forEach(otherAudio => {
+                        if (otherAudio !== audio) {
+                            otherAudio.pause();
+                        }
+                    });
+                });
+            });
+
+            // Dropdown Menu Logic
+            const hmBtn = document.getElementById('hamburger-menu');
+            const hmDrop = document.getElementById('nav-dropdown');
+            if(hmBtn && hmDrop) {
+                hmBtn.addEventListener('click', (e) => {
+                    hmDrop.classList.toggle('show');
+                    e.stopPropagation();
+                });
+                document.addEventListener('click', (e) => {
+                    if(!hmDrop.contains(e.target) && !hmBtn.contains(e.target)) {
+                        hmDrop.classList.remove('show');
+                    }
+                });
+            }
+
+            // Smart Navbar Scroll Logic
+            let lastScrollY = window.scrollY;
+            const navbar = document.querySelector('.navbar');
+
+            window.addEventListener('scroll', () => {
+                if (lastScrollY < window.scrollY) {
+                    // scrolling down
+                    navbar.classList.add('navbar--hidden');
+                } else {
+                    // scrolling up
+                    navbar.classList.remove('navbar--hidden');
+                }
+                lastScrollY = window.scrollY;
+            });
+        });
+    </script>
+</body>
+</html>

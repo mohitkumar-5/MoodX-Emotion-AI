@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodX - Deep Intelligence</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- Magic Background Orbs -->
+    <div class="aurora-bg">
+        <div class="aurora-orb orb-1"></div>
+        <div class="aurora-orb orb-2"></div>
+        <div class="aurora-orb orb-3"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="nav-left" style="position: relative;">
+                <div class="hamburger" id="hamburger-menu" style="cursor: pointer;">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="nav-dropdown" id="nav-dropdown">
+                    <a href="{{ url_for('home') }}#modes"> Explore</a>
+                    <a href="{{ url_for('home') }}#features"> Features</a>
+                    <a href="{{ url_for('home') }}#about"> About MoodX</a>
+                </div>
+                <a href="{{ url_for('home') }}" class="logo text-gradient" style="margin-left: 10px;">MoodX</a>
+            </div>
+            <div>
+                <a href="{{ url_for('detect') }}" class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Analyze Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="container split-layout">
+            <div class="hero-text">
+                <p style="color: var(--accent-secondary); font-weight: 700; letter-spacing: 2px; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 10px;">Emotion-Aware Soundtracks</p>
+                <h1>Welcome to<br><span class="text-gradient">MoodX</span></h1>
+                <p>The AI-powered emotion-based music engine that reads your true feelings and curates the perfect soundtrack.</p>
+                <p>From calm mornings to high-energy sets, MoodX interprets how you feel and generates an audio landscape in real time.</p>
+                
+                <div style="margin-top: 30px; display: flex; gap: 15px;">
+                    <a href="{{ url_for('detect') }}" class="btn-primary">Initialize AI</a>
+                </div>
+
+                <div class="hero-pills">
+                    <span class="pill">Privacy-first AI</span>
+                    <span class="pill">Neural Engine</span>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <h3 style="font-size: 1.2rem;">Live Engine Preview</h3>
+                    <span style="background: rgba(6, 182, 212, 0.1); color: var(--accent-secondary); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(6,182,212,0.3);">Adaptive</span>
+                </div>
+                
+                <div class="emotion-slider-group">
+                    <div class="emotion-slider-header"><span>Serotonin Level</span><span>88%</span></div>
+                    <div class="slider-track"><div class="slider-fill" style="width: 88%;"></div></div>
+                </div>
+                <div class="emotion-slider-group">
+                    <div class="emotion-slider-header"><span>Dopamine (Focus)</span><span>64%</span></div>
+                    <div class="slider-track"><div class="slider-fill" style="width: 64%; background: linear-gradient(to right, #ec4899, #8b5cf6);"></div></div>
+                </div>
+                
+                <!-- Magic Music Nature Image Changing Box! Highlighted section! -->
+                <div class="music-nature-bg">
+                    <div class="music-nature-overlay">
+                        <div style="display: flex; gap: 15px; align-items: center; justify-content: center; text-align: center;">
+                            <div>
+                                <h4 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 4px;" class="text-gradient">Audio Atmosphere Linked</h4>
+                                <p style="font-size: 0.85rem; color: #fff;">Sourcing tracks based on environmental & facial conditions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Scroll Section -->
+        <section class="features-section container" id="modes">
+            <h2>Choose Your <span class="text-gradient">Mode</span></h2>
+            <p>MoodX adapts to your preferred input method with next-gen multimodal intelligence.</p>
+            
+            <div class="grid-3">
+                <a href="{{ url_for('detect') }}" class="feature-box" style="text-decoration: none; color: inherit;">
+                    <div class="feature-icon"><i class="ph ph-camera-plus"></i></div>
+                    <h3>Vision Analysis</h3>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary);">Analyze live facial features via webcam or image upload to instantly match a soundtrack to your expressions.</p>
+                </a>
+                
+                <div class="feature-box" onclick="alert('Voice Integration Coming soon!')" style="cursor: pointer;">
+                    <div class="feature-icon"><i class="ph ph-microphone-stage"></i></div>
+                    <h3>Vocal Intelligence</h3>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary);">Capture tonal shifts and speech cadence to recommend playlists mapped to vocal frequencies.</p>
+                </div>
+
+                <div class="feature-box" onclick="alert('Text Insights Coming soon!')" style="cursor: pointer;">
+                    <div class="feature-icon"><i class="ph ph-text-aa"></i></div>
+                    <h3>Text Insights</h3>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary);">Type or paste your journal entries to discover the underlying emotions powering your words.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Explore Platform Section -->
+        <section class="features-section container" id="explore" style="padding-top: 50px;">
+            <h2>Built for <span class="text-gradient">Every Moment</span></h2>
+            <p>MoodX adapts to the settings you care about most, from work and study to wellness and creative flow.</p>
+            
+            <div class="grid-3" style="margin-top: 40px;">
+                <div class="feature-box" style="padding: 30px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-briefcase"></i></div>
+                    <h3 style="font-size: 1.2rem;">Focused Work</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Stay in the zone with distraction-free soundscapes.</p>
+                </div>
+                
+                <div class="feature-box" style="padding: 30px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-student"></i></div>
+                    <h3 style="font-size: 1.2rem;">Study Sessions</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Maintain clarity and retention with calming tracks.</p>
+                </div>
+
+                <div class="feature-box" style="padding: 30px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-barbell"></i></div>
+                    <h3 style="font-size: 1.2rem;">Fitness Boost</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Find the tempo that pushes you through your workout.</p>
+                </div>
+
+                <div class="feature-box" style="padding: 30px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-flower-lotus"></i></div>
+                    <h3 style="font-size: 1.2rem;">Mindful Breaks</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Reset your nervous system with gentle audio rituals.</p>
+                </div>
+
+                <div class="feature-box" style="padding: 30px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-moon"></i></div>
+                    <h3 style="font-size: 1.2rem;">Evening Wind-Down</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Transition into rest with soft nighttime playlists.</p>
+                </div>
+
+                <div class="feature-box" style="padding: 30px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-coffee"></i></div>
+                    <h3 style="font-size: 1.2rem;">Creative Flow</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Spark ideas with cinematic and ambient moods.</p>
+                </div>
+            </div>
+        <!-- Features 8-Card Section -->
+        <section class="features-section container" id="features" style="padding-top: 50px;">
+            <h2><span class="text-gradient">Features</span></h2>
+            <p>Professional-grade tools that stay intuitive for every listener.</p>
+            
+            <div class="grid-4" style="margin-top: 40px;">
+                <div class="feature-box" style="padding: 25px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-sparkle"></i></div>
+                    <h3 style="font-size: 1.1rem;">Emotion-Based Recommendations</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Receive playlists tailored to your emotional state in real time.</p>
+                </div>
+                
+                <div class="feature-box" style="padding: 25px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-chat-centered-text"></i></div>
+                    <h3 style="font-size: 1.1rem;">Multi-Input Mood Capture</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Share your feelings via text, voice, or camera input.</p>
+                </div>
+
+                <div class="feature-box" style="padding: 25px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-faders"></i></div>
+                    <h3 style="font-size: 1.1rem;">Adaptive Listening Engine</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">MoodX adjusts your soundtrack as your energy shifts.</p>
+                </div>
+
+                <div class="feature-box" style="padding: 25px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-trend-up"></i></div>
+                    <h3 style="font-size: 1.1rem;">Personal Mood Insights</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Track mood patterns and understand music impact.</p>
+                </div>
+
+                <div class="feature-box" style="padding: 25px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-headphones"></i></div>
+                    <h3 style="font-size: 1.1rem;">Focus & Flow Modes</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Curated sessions for deep work, study, or creativity.</p>
+                </div>
+
+                <div class="feature-box" style="padding: 25px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-share-network"></i></div>
+                    <h3 style="font-size: 1.1rem;">Social Sharing</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Share mood journeys and playlists with your circle.</p>
+                </div>
+
+                <div class="feature-box" style="padding: 25px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-cloud-arrow-up"></i></div>
+                    <h3 style="font-size: 1.1rem;">Cloud Sync</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Stay consistent across devices with secure sync.</p>
+                </div>
+
+                <div class="feature-box" style="padding: 25px;">
+                    <div class="feature-icon" style="margin-bottom: 15px;"><i class="ph ph-heart"></i></div>
+                    <h3 style="font-size: 1.1rem;">Feel-Good Favorites</h3>
+                    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Save playlists that always lift your mood.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="container split-layout" id="about" style="padding-top: 50px; padding-bottom: 100px; align-items: center;">
+            <div class="hero-text" style="padding-top: 0;">
+                <p style="color: var(--accent-secondary); font-weight: 700; letter-spacing: 2px; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 10px;">The Engineering</p>
+                <style>@keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }</style>
+                <h2 style="font-size: 2.5rem; margin-bottom: 15px;">Decoding <span class="text-gradient">Emotion</span> <i class="ph-fill ph-heart" style="color: #ff4757; display: inline-block; animation: heartbeat 1.5s infinite;"></i></h2>
+                <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px;">MoodX bridges the gap between human psychology and audio frequencies. Our architecture leverages advanced Convolutional Neural Networks to read complex micro-expressions in real-time.</p>
+                <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 30px;">By evaluating the subtle contractions of facial muscles alongside contextual environmental input, our multimodal system actively synthesizes the precise soundscape required to balance your cognitive load, whether you need deep focus, inspiration, or profound relaxation.</p>
+            </div>
+            
+            <div style="position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(139, 92, 246, 0.3); background: #000; height: 280px;">
+                <!-- True Native Live Audio Wave Generator -->
+                <canvas id="live-wave-canvas" style="width: 100%; height: 100%; display: block; filter: contrast(1.2); box-shadow: inset 0 0 50px rgba(139,92,246,0.2);"></canvas>
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);">
+                    <h4 style="color: #fff; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">Neural Audio Engine</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">Real-time sensory wavelength simulation.</p>
+                </div>
+            </div>
+            <script>
+                // Generate a beautiful, hypnotic live neural wave directly in the browser!
+                const cnvs = document.getElementById('live-wave-canvas');
+                const ctx = cnvs.getContext('2d');
+                function resizeCanvas() { cnvs.width = cnvs.offsetWidth; cnvs.height = cnvs.offsetHeight; }
+                window.addEventListener('resize', resizeCanvas);
+                resizeCanvas();
+                let waveTime = 0;
+                function renderWave() {
+                    ctx.fillStyle = 'rgba(5, 5, 8, 0.15)'; // Deep dark trace effect
+                    ctx.fillRect(0, 0, cnvs.width, cnvs.height);
+                    
+                    // Wave 1 (Purple - Mood)
+                    ctx.beginPath();
+                    for(let i = 0; i < cnvs.width; i+=4) {
+                        let y = cnvs.height/2 + Math.sin(i*0.015 + waveTime)*40 + Math.cos(i*0.005 + waveTime*0.7)*20;
+                        ctx.lineTo(i, y);
+                    }
+                    ctx.strokeStyle = 'rgba(139, 92, 246, 0.8)';
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+                    
+                    // Wave 2 (Cyan - Precision)
+                    ctx.beginPath();
+                    for(let i = 0; i < cnvs.width; i+=4) {
+                        let y = cnvs.height/2 + Math.sin(i*0.025 + waveTime*1.2)*35 + Math.sin(i*0.01)*15;
+                        ctx.lineTo(i, y);
+                    }
+                    ctx.strokeStyle = 'rgba(6, 182, 212, 0.6)';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    waveTime += 0.04;
+                    requestAnimationFrame(renderWave);
+                }
+                renderWave();
+            </script>
+        </section>
+    </main>
+
+    <!-- Smart Navbar & Dropdown Logic -->
+    <script>
+        // Dropdown menu logic
+        const hmBtn = document.getElementById('hamburger-menu');
+        const hmDrop = document.getElementById('nav-dropdown');
+        if(hmBtn && hmDrop) {
+            hmBtn.addEventListener('click', (e) => {
+                hmDrop.classList.toggle('show');
+                e.stopPropagation();
+            });
+            document.addEventListener('click', (e) => {
+                if(!hmDrop.contains(e.target) && !hmBtn.contains(e.target)) {
+                    hmDrop.classList.remove('show');
+                }
+            });
+        }
+
+        let lastScrollY = window.scrollY;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (lastScrollY < window.scrollY) {
+                // scrolling down
+                navbar.classList.add('navbar--hidden');
+            } else {
+                // scrolling up
+                navbar.classList.remove('navbar--hidden');
+            }
+            lastScrollY = window.scrollY;
+        });
+    </script>
+</body>
+</html>

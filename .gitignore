@@ -1,0 +1,6 @@
+my_envgpu/
+__pycache__/
+*.pyc
+.env
+static/uploads/*
+!static/uploads/.gitkeep

@@ -1,0 +1,156 @@
+{
+    "happy": [
+        {
+            "title": "Happy Pharrell Williams",
+            "yt_id": "ZbZSe6N_BXs"
+        },
+        {
+            "title": "Tum Hi Ho Bandhu Cocktail",
+            "yt_id": "o1RducJbUdc"
+        },
+        {
+            "title": "Uptown Funk Bruno Mars",
+            "yt_id": "OPf0YbXqDm0"
+        },
+        {
+            "title": "Kar Gayi Chull",
+            "yt_id": "NTHz9ephYTw"
+        },
+        {
+            "title": "Don't Stop Me Now Queen",
+            "yt_id": "HgzGwKwLmgM"
+        }
+    ],
+    "sad": [
+        {
+            "title": "Someone Like You Adele",
+            "yt_id": "hLQl3WQQoQ0"
+        },
+        {
+            "title": "Channa Mereya",
+            "yt_id": "284Ov7ysmfA"
+        },
+        {
+            "title": "Fix You Coldplay",
+            "yt_id": "k4V3Mo61fJM"
+        },
+        {
+            "title": "Kabira Yeh Jawaani",
+            "yt_id": "jHNNMj5bNQw"
+        },
+        {
+            "title": "Let Her Go Passenger",
+            "yt_id": "HTcL9WkB_wg"
+        }
+    ],
+    "angry": [
+        {
+            "title": "Break Stuff Limp",
+            "yt_id": "ZpUYjpKg9KY"
+        },
+        {
+            "title": "Sadda Haq Rockstar",
+            "yt_id": "p9DQINKZxWE"
+        },
+        {
+            "title": "Numb Linkin Park",
+            "yt_id": "kXYiU_JCYtU"
+        },
+        {
+            "title": "Aarambh Hai Prachand",
+            "yt_id": "r6SbfF9FjTg"
+        },
+        {
+            "title": "Smells Like Teen Spirit",
+            "yt_id": "hTWKbfoikeg"
+        }
+    ],
+    "neutral": [
+        {
+            "title": "Weightless Marconi",
+            "yt_id": "UfcAVejslrU"
+        },
+        {
+            "title": "Kun Faya Kun",
+            "yt_id": "T94PHkuydcw"
+        },
+        {
+            "title": "Holocene Bon Iver",
+            "yt_id": "TWcyIpul8OE"
+        },
+        {
+            "title": "Iktara Wake Up Sid",
+            "yt_id": "akjdj6iHttY"
+        },
+        {
+            "title": "Clair de Lune",
+            "yt_id": "WNcsUNKlAKw"
+        }
+    ],
+    "fear": [
+        {
+            "title": "Thriller Michael Jackson",
+            "yt_id": "sOnqjkJTMaA"
+        },
+        {
+            "title": "Gumnaam Hai Koi",
+            "yt_id": "SqPagtDvOFo"
+        },
+        {
+            "title": "Halloween Theme",
+            "yt_id": "gqVyois9mp4"
+        },
+        {
+            "title": "Bhool Bhulaiyaa Title",
+            "yt_id": "B9_nql5xBFo"
+        },
+        {
+            "title": "Tubular Bells",
+            "yt_id": "FN6jIvKiYOs"
+        }
+    ],
+    "surprise": [
+        {
+            "title": "Bohemian Rhapsody",
+            "yt_id": "fJ9rUzIMcZQ"
+        },
+        {
+            "title": "Badtameez Dil",
+            "yt_id": "II2EO3Nw4m0"
+        },
+        {
+            "title": "Take On Me ah ha",
+            "yt_id": "djV11Xbc914"
+        },
+        {
+            "title": "Aankh Marey",
+            "yt_id": "_KhQT-LGb-4"
+        },
+        {
+            "title": "Sledgehammer Peter Gabriel",
+            "yt_id": "OJWJE0x7T4Q"
+        }
+    ],
+    "disgust": [
+        {
+            "title": "Bad Guy Billie Eilish",
+            "yt_id": "DyDfgMOUjCI"
+        },
+        {
+            "title": "Nadaan Parindey",
+            "yt_id": "6MgsHSAcI9k"
+        },
+        {
+            "title": "Toxic Britney",
+            "yt_id": "LOZuxwVk7TU"
+        },
+        {
+            "title": "Bhaag D.K. Bose",
+            "yt_id": "vs1IDdap3X4"
+        },
+        {
+            "title": "Creep Radiohead",
+            "yt_id": "XFkzRNyygfk"
+        }
+    ]
+}
